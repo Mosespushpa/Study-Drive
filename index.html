@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Drive | B.Tech Telangana</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="news-ticker">
+        <marquee behavior="scroll" direction="left">
+            <!-- ⚠️ Upcoming: JNTUH R22 Supplementary Exams Registration Starts Soon | 📚 New Notes uploaded for ACE Engineering College (CSD) | 🚀 Roadmap for AI/ML updated. -->
+             ⚠️ Under Initial Develpment Process
+        </marquee>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Study Drive 🎓</h1>
+            <p>Your centralized hub for B.Tech resources in Telangana.</p>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search for colleges, subjects, or roadmaps...">
+            </div>
+        </header>
+        <main id="app">
+            <nav class="breadcrumbs" id="breadcrumbs">
+                <span onclick="renderColleges()">Colleges</span>
+            </nav>
+
+            <section class="grid" id="contentGrid">
+            </section>
+            
+
+            <div id="no-results" style="display: none; text-align: center; margin-top: 50px; padding: 20px;">
+                <img src="https://img.icons8.com/ios/100/2563eb/search--v1.png" alt="Searching" style="opacity: 0.5;">
+                <h3 style="color: #64748b;">No results found... yet!</h3>
+                <p style="color: #94a3b8;">We're currently working on adding more colleges and branches. <br> Check back soon for updates!</p>
+            </div>
+        </main>
+        <!-- <main>
+            
+            <section class="grid" id="contentGrid">
+                <div class="card" onclick="location.href='#';">
+                    <h3>ACE Engineering College</h3>
+                    <p>Departments: CSD, CSE, IT, ECE</p>
+                    <span class="view-btn">View Syllabus</span>
+                </div>
+
+                <div class="card">
+                    <h3>JNTUH (Main Campus)</h3>
+                    <p>Departments: All B.Tech Streams</p>
+                    <span class="view-btn">View Syllabus</span>
+                </div>
+            </section>
+        </main> -->
+
+        <footer>
+    <div class="footer-content">
+        <p>&copy; 2026 <strong>Study Drive</strong> | Empowering Students</p>
+        <p class="founder-credit">
+            Founded & Developed by <span class="founder-name">Moses Chinnappan</span> with help of Gemini
+        </p>
+        <div class="footer-links">
+            <a href="#">Contact Support</a> • 
+            <a href="#">Request Notes</a> • 
+            <a href="https://github.com/mosespushpa">GitHub</a>
+        </div>
+    </div>
+</footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
