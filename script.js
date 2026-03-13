@@ -1,17 +1,3 @@
-// document.getElementById('searchInput').addEventListener('keyup', function() {
-//     let filter = this.value.toUpperCase();
-//     let cards = document.querySelectorAll('.card');
-
-//     cards.forEach(card => {
-//         let text = card.textContent || card.innerText;
-//         if (text.toUpperCase().indexOf(filter) > -1) {
-//             card.style.display = "";
-//         } else {
-//             card.style.display = "none";
-//         }
-//     });
-// });
-
 document.getElementById('searchInput').addEventListener('keyup', function() {
     let filter = this.value.toUpperCase();
     let cards = document.querySelectorAll('.card');
@@ -28,8 +14,10 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
         }
     });
 
-    // Toggle the "Working on it" message based on results
-    if (visibleCount === 0 && filter !== "") {
+    // If search is active and nothing found, OR if the grid is just empty
+    if (visibleCount === 0 && grid.children.length > 0) {
+        noResultsMsg.style.display = "block";
+    } else if (grid.children.length === 0) {
         noResultsMsg.style.display = "block";
     } else {
         noResultsMsg.style.display = "none";
@@ -74,6 +62,22 @@ const studyData = {
 const grid = document.getElementById('contentGrid');
 const breadcrumbs = document.getElementById('breadcrumbs');
 
+// A helper function to handle empty states
+function checkEmpty(container, dataKey) {
+    const noResultsMsg = document.getElementById('no-results');
+    
+    // Check if data is null, undefined, or an empty object/array
+    if (!dataKey || Object.keys(dataKey).length === 0) {
+        container.innerHTML = ''; // Clear the grid
+        noResultsMsg.style.display = "block";
+        return true; // It is empty
+    } else {
+        noResultsMsg.style.display = "none";
+        return false; // It has data
+    }
+}
+
+
 // 2. Function to Render Colleges (Level 1)
 function renderColleges() {
     breadcrumbs.innerHTML = `<span onclick="renderColleges()">Colleges</span>`;
@@ -91,7 +95,11 @@ function renderColleges() {
 function renderBranches(college) {
     breadcrumbs.innerHTML = `<span onclick="renderColleges()">Colleges</span> > <span>${college}</span>`;
     grid.innerHTML = '';
-    Object.keys(studyData[college]).forEach(branch => {
+    
+    const branches = studyData[college];
+    if (checkEmpty(grid, branches)) return;
+
+    Object.keys(branches).forEach(branch => {
         grid.innerHTML += `
             <div class="card branch-card" onclick="renderRegulations('${college}', '${branch}')">
                 <h3>${branch}</h3>
@@ -100,11 +108,17 @@ function renderBranches(college) {
     });
 }
 
+
+
 // 4. Function to Render Regulations (Level 3)
 function renderRegulations(college, branch) {
     breadcrumbs.innerHTML = `<span onclick="renderColleges()">Colleges</span> > <span onclick="renderBranches('${college}')">${college}</span> > <span>${branch}</span>`;
     grid.innerHTML = '';
-    Object.keys(studyData[college][branch]).forEach(reg => {
+    
+    const regulations = studyData[college][branch];
+    if (checkEmpty(grid, regulations)) return;
+
+    Object.keys(regulations).forEach(reg => {
         grid.innerHTML += `
             <div class="card reg-card" onclick="renderYears('${college}', '${branch}', '${reg}')">
                 <h3>Regulation ${reg}</h3>
@@ -116,8 +130,10 @@ function renderRegulations(college, branch) {
 // 5. Function to Render Years & Files (Final Level)
 function renderYears(college, branch, reg) {
     grid.innerHTML = '';
+
     const years = studyData[college][branch][reg];
-    
+     if (checkEmpty(grid, years)) return;
+
     for (let year in years) {
         let filesHtml = years[year].map(file => 
             `<a href="data/colleges/${college}/${branch}/${reg}/${file}" class="file-link" target="_blank">📄 ${file}</a>`
