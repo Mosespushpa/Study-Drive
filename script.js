@@ -48,7 +48,14 @@ const studyData = {
             },
             "R-22": { /* Add similar structure here */ }
         },
-        "CSE": { /* Add branches here */ }
+        "CSE": { /* Add branches here */ },
+        "IT": { /* Add branches here */ },
+        "CSE(AI & ML)": { /* Add branches here */ },
+        "IOT": { /* Add branches here */ },
+        "CIVIL": { /* Add branches here */ },
+        "MECH": { /* Add branches here */ },
+        "EEE": { /* Add branches here */ },
+        "ECE": { /* Add branches here */ }
     },
     "JNTUH": {
         "CSD": {
@@ -88,7 +95,7 @@ function renderBranches(college) {
         grid.innerHTML += `
             <div class="card branch-card" onclick="renderRegulations('${college}', '${branch}')">
                 <h3>${branch}</h3>
-                <p>Department of ${branch}</p>
+                <p>Click to view Available Regulations</p>
             </div>`;
     });
 }
